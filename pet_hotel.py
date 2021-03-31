@@ -2,10 +2,10 @@ import flask
 import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
-from dotenv import load_dotenv
+
 import os
 
-DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
+
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -32,9 +32,16 @@ app.run()
 # @app.route('/api/pets/add', methods=['POST'])
 # def api_add():
 #   print(request)
-#   pet = request.form['pet']
+#   name = request.form['name']
 
 #   try:
+        # connection = psycopg2.connect(user=DATABASE_USERNAME,
+        #                               host="127.0.0.1",
+        #                               port="5432",
+        #                               database="python_flask")
+        # cursor = connection.cursor(cursor_factory=RealDictCursor)
+        # print(name,    ,    ,    )
+        # insertQuery = "INSET INTO pets (name,     ,     ,    )
 
 
 # export default FLASK_APP=pet_hotel.py
