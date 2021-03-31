@@ -19,7 +19,7 @@ def api_all():
                                   port="5432",
                                   database="pet_hotel")
     cursor = connection.cursor()
-    postgresSQL_select_Query = "SELECT * FROM pets"
+    postgresSQL_select_Query = "SELECT pets.*, owners.name FROM pets, owners WHERE pets.owner_id = owners.id"
     
     # Executes query
     cursor.execute(postgresSQL_select_Query)

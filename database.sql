@@ -1,15 +1,15 @@
 -- CREATE DATABASE "pet_hotel";
 
+-- owners 
 CREATE TABLE "owners" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR (80) UNIQUE NOT NULL
 );
 
-
-
+-- pets 
 CREATE TABLE "pets" (
     "id" SERIAL PRIMARY KEY,
-    "owner_id" INT REFERENCES "owners",
+    "owner_id" INT REFERENCES "owners" ON DELETE CASCADE,
     "name" VARCHAR (80) NOT NULL,
     "breed" VARCHAR (100) NOT NULL,
     "color" VARCHAR (80) NOT NULL,
