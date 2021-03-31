@@ -2,10 +2,10 @@ import flask
 import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
-import os
+# import os
 
-# export DATABASE_USERNAME="username_goes_here"
-DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
+# # export DATABASE_USERNAME="username_goes_here"
+# DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,7 +15,8 @@ app.config["DEBUG"] = True
 def api_all():
 
   # if we can get the data back and then even print it 
-    connection = psycopg2.connect(user=DATABASE_USERNAME,
+  # user=DATABASE_USERNAME,
+    connection = psycopg2.connect(
                                   host="127.0.0.1",
                                   port="5432",
                                   database="pet_hotel")

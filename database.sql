@@ -31,5 +31,14 @@ VALUES
 (4, 'Sparkles', 'Unicorn', 'Rainbow', NULL, TRUE),
 (4, 'Flipper', 'Dolphin', 'Grey', NULL, TRUE);
 
+-- Sample Queries 
+-- use Date() in Javascript and then pass a string to set checked_date - YYYY-MM-DD
+UPDATE "pets"
+SET "checked_date" = '2020-03-31'
+WHERE "id" = 11;
 
--- CREATE TABLE "petowner"
+UPDATE "pets" 
+SET "checked_in" = FALSE
+WHERE "id" = 13;
+
+DELETE FROM "pets" WHERE id = 10;
