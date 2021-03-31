@@ -2,9 +2,9 @@ import flask
 import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
-from dotenv import load_dotenv
 import os
 
+# export DATABASE_USERNAME="username_goes_here"
 DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
 
 app = flask.Flask(__name__)
