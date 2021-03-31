@@ -13,6 +13,7 @@ app.config["DEBUG"] = True
 # default route to show home page and history table
 @app.route('/api/pets/all', methods=['GET'])
 def api_all():
+
   # if we can get the data back and then even print it 
     connection = psycopg2.connect(user=DATABASE_USERNAME,
                                   host="127.0.0.1",
