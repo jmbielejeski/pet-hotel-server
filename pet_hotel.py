@@ -2,9 +2,9 @@ import flask
 import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
-from dotenv import load_dotenv
 import os
 
+# export DATABASE_USERNAME="username_goes_here"
 DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
 
 app = flask.Flask(__name__)
@@ -13,6 +13,7 @@ app.config["DEBUG"] = True
 # default route to show home page and history table
 @app.route('/api/pets/all', methods=['GET'])
 def api_all():
+
   # if we can get the data back and then even print it 
     connection = psycopg2.connect(user=DATABASE_USERNAME,
                                   host="127.0.0.1",
