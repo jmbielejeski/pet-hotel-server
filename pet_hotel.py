@@ -37,6 +37,28 @@ def api_all():
 
     return jsonify(pets)
 
+    # route to grab all teh owners
+@app.route('/api/owners/all', methods=['GET'])
+def api_all_owners():
+
+  # if we can get the data back and then even print it 
+  # user=DATABASE_USERNAME,
+    connection = psycopg2.connect(
+                                  host="127.0.0.1",
+                                  port="5432",
+                                  database="pet_hotel")
+    app.logger.info(request)
+                                          
+    # Avoid getting arrays of arrays!
+    cursor = connection.cursor(cursor_factory=RealDictCursor)
+    postgresSQL_select_Query = "SELECT * FROM owners"
+    
+    # Executes query
+    cursor.execute(postgresSQL_select_Query)
+    owners = cursor.fetchall()
+
+    return jsonify(owners)
+
 @app.route('/api/owner/add', methods=['POST'])
 def api_add_owner():
   print(request)
@@ -116,6 +138,7 @@ def api_add_pet():
         connection.close()
         print("PostgreSQL connection is closed")
 
+<<<<<<< HEAD
 # DELETES pet
 @app.route('/api/pets/delete/<id>', methods=['DELETE'])
 def api_delete_pet(id):
@@ -154,9 +177,9 @@ def api_delete_owner():
 
     print(cursor.rowcount, "owner deleted")
 
+=======
+>>>>>>> e6b1bebb244366199c3b28696333f75e4f154b76
 app.run()
-
-
 # export default FLASK_APP=pet_hotel.py
 # flask run 
 # python3 pet_hotel.py
