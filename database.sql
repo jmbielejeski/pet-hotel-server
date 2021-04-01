@@ -14,7 +14,7 @@ CREATE TABLE "pets" (
     "breed" VARCHAR (100) NOT NULL,
     "color" VARCHAR (80) NOT NULL,
     "checked_date" DATE DEFAULT NULL,
-    "checked_in" BOOLEAN NOT NULL
+    "checked_in" BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 INSERT INTO "owners" ("owner_name")
