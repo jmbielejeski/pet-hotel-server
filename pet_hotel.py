@@ -36,7 +36,7 @@ app.run()
 @app.route('/api/owner/add', methods=['POST'])
 def api_add():
   print(request)
-  name = request.form['name']
+  owner_name = request.form['owner_name']
   try:
       connection = psycopg2.connect(
                                     host="127.0.0.1",
@@ -75,10 +75,9 @@ def api_add():
 @app.route('/api/pets/add', methods=['POST'])
 def api_add():
   print(request)
-  
+  owner_id = request.form['owner_id']
   pet_name = request.form['pet_name']
   breed = request.form['breed']
-  owner_id = request.form['owner_id']
   color = request.form['color']
   try:
       connection = psycopg2.connect(
