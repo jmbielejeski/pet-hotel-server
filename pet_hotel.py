@@ -2,13 +2,18 @@ import flask
 import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
+import logging 
 # import os
 
 # # export DATABASE_USERNAME="username_goes_here"
 # DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
 
+log_level = logging.INFO
+
+
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+app.logger.setLevel(log_level)
 
 # default route to show home page and history table
 @app.route('/api/pets/all', methods=['GET'])
@@ -20,6 +25,7 @@ def api_all():
                                   host="127.0.0.1",
                                   port="5432",
                                   database="pet_hotel")
+    app.logger.info(request)
                                           
     # Avoid getting arrays of arrays!
     cursor = connection.cursor(cursor_factory=RealDictCursor)
@@ -31,17 +37,15 @@ def api_all():
 
     return jsonify(pets)
 
-app.run()
-
 @app.route('/api/owner/add', methods=['POST'])
-def api_add():
+def api_add_owner():
   print(request)
   owner_name = request.form['owner_name']
   try:
       connection = psycopg2.connect(
                                     host="127.0.0.1",
                                     port="5432",
-                                    database="python_flask")
+                                    database="pet_hotel")
       # To avoid getting arrays of arrays RealDictCursor
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       print(name)
@@ -73,17 +77,18 @@ def api_add():
 
 
 @app.route('/api/pets/add', methods=['POST'])
-def api_add():
-  print(request)
-  owner_id = request.form['owner_id']
-  pet_name = request.form['pet_name']
-  breed = request.form['breed']
-  color = request.form['color']
+def api_add_pet():
+  print('hello')
+  print(request.json)
+  owner_id = request.json['owner_id']
+  pet_name = request.json['pet_name']
+  breed = request.json['breed']
+  color = request.json['color']
   try:
       connection = psycopg2.connect(
                                     host="127.0.0.1",
                                     port="5432",
-                                    database="python_flask")
+                                    database="pet_hotel")
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       print(owner_id, pet_name, breed, color)
       # Insert pet into DB
@@ -111,7 +116,7 @@ def api_add():
         connection.close()
         print("PostgreSQL connection is closed")
 
-
+app.run()
 
 
 # export default FLASK_APP=pet_hotel.py
