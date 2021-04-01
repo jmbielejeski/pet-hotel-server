@@ -46,8 +46,8 @@ def api_add():
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       print(name)
       # Insert owner into DB
-      insertQuery = "INSERT INTO owners (name) VALUES (%s)"
-      cursor.execute(insetQuery, (name,))
+      insertQuery = "INSERT INTO owners (owner_name) VALUES (%s)"
+      cursor.execute(insertQuery, (name,))
       # commit the query
       connection.commit()
       count = cursor.rowcount
@@ -75,8 +75,10 @@ def api_add():
 @app.route('/api/pets/add', methods=['POST'])
 def api_add():
   print(request)
-  name = request.form['name']
+  
+  pet_name = request.form['pet_name']
   breed = request.form['breed']
+  owner_id = request.form['owner_id']
   color = request.form['color']
   try:
       connection = psycopg2.connect(
@@ -84,10 +86,10 @@ def api_add():
                                     port="5432",
                                     database="python_flask")
       cursor = connection.cursor(cursor_factory=RealDictCursor)
-      print(owner_id, name, breed, color)
+      print(owner_id, pet_name, breed, color)
       # Insert pet into DB
-      insertQuery = "INSERT INTO pets (owner_id, name, breed, color) VALUES (%s, %s, %s, %s)"
-      cursor.execute(insetQuery, (owner_id, name, breed, color))
+      insertQuery = "INSERT INTO pets (owner_id, pet_name, breed, color) VALUES (%s, %s, %s, %s)"
+      cursor.execute(insertQuery, (owner_id, pet_name, breed, color))
       # commit the query
       connection.commit()
       count = cursor.rowcount
