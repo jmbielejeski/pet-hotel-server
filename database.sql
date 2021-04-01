@@ -3,24 +3,24 @@
 -- owners 
 CREATE TABLE "owners" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (80) UNIQUE NOT NULL
+    "owner_name" VARCHAR (80) UNIQUE NOT NULL
 );
 
 -- pets 
 CREATE TABLE "pets" (
     "id" SERIAL PRIMARY KEY,
     "owner_id" INT REFERENCES "owners" ON DELETE CASCADE,
-    "name" VARCHAR (80) NOT NULL,
+    "pet_name" VARCHAR (80) NOT NULL,
     "breed" VARCHAR (100) NOT NULL,
     "color" VARCHAR (80) NOT NULL,
     "checked_date" DATE DEFAULT NULL,
     "checked_in" BOOLEAN NOT NULL
 );
 
-INSERT INTO "owners" ("name")
+INSERT INTO "owners" ("owner_name")
 VALUES ('John B'), ('John S'), ('George'), ('Jason');
 
-INSERT INTO "pets" ("owner_id", "name", "breed", "color", "checked_date", "checked_in")
+INSERT INTO "pets" ("owner_id", "pet_name", "breed", "color", "checked_date", "checked_in")
 VALUES 
 (1, 'Fluffy', 'Golden Retriever', 'Gold', NULL, TRUE),
 (1, 'Snuffy', 'Hamster', 'Brown', NULL, TRUE),
