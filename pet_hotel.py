@@ -117,8 +117,9 @@ def api_add_pet():
         print("PostgreSQL connection is closed")
 
 # DELETES pet
-@app.route('/api/pets/all', methods=['DELETE'])
-def api_delete_pet():
+@app.route('/api/pets/delete/<id>', methods=['DELETE'])
+def api_delete_pet(id):
+    print('id', id)
   # if we can get the data back and then even print it 
   # user=DATABASE_USERNAME,
     connection = psycopg2.connect(
@@ -130,7 +131,7 @@ def api_delete_pet():
     cursor = connection.cursor(cursor_factory=RealDictCursor)
     delete_Query = "DELETE FROM pets WHERE id = %s"
     # Executes query
-    cursor.execute(delete_Query)
+    cursor.execute(delete_Query, (id,))
     connection.commit()
 
     print(cursor.rowcount, "pet deleted")
