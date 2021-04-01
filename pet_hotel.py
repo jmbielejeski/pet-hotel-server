@@ -37,6 +37,28 @@ def api_all():
 
     return jsonify(pets)
 
+    # route to grab all teh owners
+@app.route('/api/owners/all', methods=['GET'])
+def api_all_owners():
+
+  # if we can get the data back and then even print it 
+  # user=DATABASE_USERNAME,
+    connection = psycopg2.connect(
+                                  host="127.0.0.1",
+                                  port="5432",
+                                  database="pet_hotel")
+    app.logger.info(request)
+                                          
+    # Avoid getting arrays of arrays!
+    cursor = connection.cursor(cursor_factory=RealDictCursor)
+    postgresSQL_select_Query = "SELECT * FROM owners"
+    
+    # Executes query
+    cursor.execute(postgresSQL_select_Query)
+    owners = cursor.fetchall()
+
+    return jsonify(owners)
+
 @app.route('/api/owner/add', methods=['POST'])
 def api_add_owner():
   print(request)
@@ -115,43 +137,6 @@ def api_add_pet():
         cursor.close()
         connection.close()
         print("PostgreSQL connection is closed")
-
-# DELETES pet
-@app.route('/api/pets/all', methods=['DELETE'])
-def api_delete_pet():
-  # if we can get the data back and then even print it 
-  # user=DATABASE_USERNAME,
-    connection = psycopg2.connect(
-                                  host="127.0.0.1",
-                                  port="5432",
-                                  database="pet_hotel")
-                                          
-    # Avoid getting arrays of arrays!
-    cursor = connection.cursor(cursor_factory=RealDictCursor)
-    delete_Query = "DELETE FROM pets WHERE id = %s"
-    # Executes query
-    cursor.execute(delete_Query)
-    connection.commit()
-
-    print(cursor.rowcount, "pet deleted")
-
-
-    # DELETES owner
-@app.route('/api/owner/all', methods=['DELETE'])
-def api_delete_owner():
-  # if we can get the data back and then even print it 
-    connection = psycopg2.connect(
-                                  host="127.0.0.1",
-                                  port="5432",
-                                  database="pet_hotel")                   
-    # Avoid getting arrays of arrays!
-    cursor = connection.cursor(cursor_factory=RealDictCursor)
-    delete_Query = "DELETE FROM owner WHERE id = %s"
-    # Executes query
-    cursor.execute(delete_Query)
-    connection.commit()
-
-    print(cursor.rowcount, "owner deleted")
 
 app.run()
 # export default FLASK_APP=pet_hotel.py
