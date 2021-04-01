@@ -31,17 +31,17 @@ def api_all():
 
     return jsonify(pets)
 
-app.run()
+
 
 @app.route('/api/owner/add', methods=['POST'])
-def api_add():
+def api_add_owner():
   print(request)
   owner_name = request.form['owner_name']
   try:
       connection = psycopg2.connect(
                                     host="127.0.0.1",
                                     port="5432",
-                                    database="python_flask")
+                                    database="pet_hotel")
       # To avoid getting arrays of arrays RealDictCursor
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       print(name)
@@ -73,8 +73,8 @@ def api_add():
 
 
 @app.route('/api/pets/add', methods=['POST'])
-def api_add():
-  print(request)
+def api_add_pet():
+  print(request.form)
   owner_id = request.form['owner_id']
   pet_name = request.form['pet_name']
   breed = request.form['breed']
@@ -83,7 +83,7 @@ def api_add():
       connection = psycopg2.connect(
                                     host="127.0.0.1",
                                     port="5432",
-                                    database="python_flask")
+                                    database="pet_hotel")
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       print(owner_id, pet_name, breed, color)
       # Insert pet into DB
@@ -112,7 +112,7 @@ def api_add():
         print("PostgreSQL connection is closed")
 
 
-
+app.run()
 
 # export default FLASK_APP=pet_hotel.py
 # flask run 
